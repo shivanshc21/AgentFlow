@@ -3,6 +3,7 @@ import os
 import shutil
 
 from backend.app.services.pdf_parser import extract_text_from_pdf
+from backend.app.rag.chunker import chunk_text
 
 router = APIRouter()
 
@@ -20,7 +21,10 @@ async def upload_pdf(file: UploadFile = File(...)):
 
     extracted_text = extract_text_from_pdf(file_path)
 
+    chunks = chunk_text(extracted_text)
+
     return {
         "filename": file.filename,
-        "text_preview": extracted_text[:1000]
+        "total_chunks": len(chunks),
+        "first_chunk": chunks[0] if chunks else ""
     }
