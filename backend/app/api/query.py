@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from backend.app.rag.retriever import retrieve_chunks
+from backend.app.rag.generator import generate_response
 
 router = APIRouter()
 
@@ -9,16 +10,14 @@ async def query_rag(q: str):
 
     results = retrieve_chunks(q)
 
-    chunks = []
+    contexts = [row[0] for row in results]
 
-    for row in results:
-
-        chunks.append({
-            "content": row[0],
-            "distance": float(row[1])
-        })
+    answer = generate_response(
+        query=q,
+        contexts=contexts
+    )
 
     return {
         "query": q,
-        "results": chunks
+        "answer": answer
     }
