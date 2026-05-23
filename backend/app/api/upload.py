@@ -4,6 +4,7 @@ import shutil
 
 from backend.app.services.pdf_parser import extract_text_from_pdf
 from backend.app.rag.chunker import chunk_text
+from backend.app.rag.embeddings import generate_embedding
 
 router = APIRouter()
 
@@ -23,8 +24,10 @@ async def upload_pdf(file: UploadFile = File(...)):
 
     chunks = chunk_text(extracted_text)
 
+    first_embedding = generate_embedding(chunks[0])
+
     return {
         "filename": file.filename,
         "total_chunks": len(chunks),
-        "first_chunk": chunks[0] if chunks else ""
+        "embedding_dimension": len(first_embedding)
     }
