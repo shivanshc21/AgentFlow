@@ -1,17 +1,27 @@
 import ollama
 
-def generate_response(query, contexts):
+def generate_response(query, contexts, memory):
 
     context_text = "\n\n".join(contexts)
 
+    memory_text = ""
+
+    for role, msg in memory:
+        memory_text += f"{role}: {msg}\n"
+
     prompt = f"""
-Answer ONLY using the provided context.
+You are a helpful AI assistant.
+
+Conversation History:
+{memory_text}
 
 Context:
 {context_text}
 
 Question:
 {query}
+
+Answer ONLY using context if relevant.
 """
 
     response = ollama.chat(
