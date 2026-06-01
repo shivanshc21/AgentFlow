@@ -1,40 +1,21 @@
-from fastapi import APIRouter, UploadFile, File
-import os
+from fastapi import APIRouter, UploadFile
 import shutil
 
-from backend.app.services.pdf_parser import extract_text_from_pdf
-from backend.app.rag.chunker import chunk_text
-from backend.app.rag.embeddings import generate_embedding
-from backend.app.rag.vector_store import store_chunk
+from app.worker.tasks import process_document
 
 router = APIRouter()
 
-UPLOAD_DIR = "uploads"
-
-os.makedirs(UPLOAD_DIR, exist_ok=True)
-
 @router.post("/upload")
-async def upload_pdf(file: UploadFile = File(...)):
+async def upload_pdf(file: UploadFile):
 
-    file_path = f"{UPLOAD_DIR}/{file.filename}"
+    filepath = f"uploads/{file.filename}"
 
-    with open(file_path, "wb") as buffer:
+    with open(filepath, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    extracted_text = extract_text_from_pdf(file_path)
-
-    chunks = chunk_text(extracted_text)
-
-    for chunk in chunks:
-
-        embedding = generate_embedding(chunk)
-
-        store_chunk(
-            content=chunk,
-            embedding=embedding
-        )
+    process_document.delay(filepath)
 
     return {
-        "filename": file.filename,
-        "chunks_stored": len(chunks)
+        "message": "Document uploaded successfully",
+        "status": "processing"
     }

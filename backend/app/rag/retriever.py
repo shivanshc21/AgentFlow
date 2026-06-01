@@ -1,7 +1,7 @@
 from sqlalchemy import text
 
-from backend.app.db.database import engine
-from backend.app.rag.embeddings import generate_embedding
+from app.db.database import engine
+from app.rag.embeddings import generate_embedding
 
 def retrieve_chunks(query, limit=5):
 

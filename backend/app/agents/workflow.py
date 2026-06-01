@@ -1,12 +1,12 @@
 from langgraph.graph import StateGraph
 from langgraph.graph import END
 
-from backend.app.agents.state import AgentState
+from app.agents.state import AgentState
 
-from backend.app.agents.retriever_agent import retriever_agent
-from backend.app.agents.planner_agent import planner_agent
-from backend.app.agents.writer_agent import writer_agent
-from backend.app.agents.critic_agent import critic_agent
+from app.agents.retriever_agent import retriever_agent
+from app.agents.planner_agent import planner_agent
+from app.agents.writer_agent import writer_agent
+from app.agents.critic_agent import critic_agent
 
 workflow = StateGraph(AgentState)
 

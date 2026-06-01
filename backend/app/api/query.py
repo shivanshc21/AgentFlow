@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from backend.app.agents.workflow import graph
+from app.agents.workflow import graph
 
 router = APIRouter()
 

@@ -1,4 +1,4 @@
-from backend.app.rag.retriever import retrieve_chunks
+from app.rag.retriever import retrieve_chunks
 
 def retriever_agent(state):
 

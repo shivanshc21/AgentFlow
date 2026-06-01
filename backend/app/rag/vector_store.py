@@ -1,6 +1,6 @@
 from sqlalchemy import text
 
-from backend.app.db.database import engine
+from app.db.database import engine
 
 def store_chunk(content, embedding):
 
@@ -22,3 +22,13 @@ def store_chunk(content, embedding):
         )
 
         conn.commit()
+
+
+def store_chunks(chunks):
+
+    for chunk in chunks:
+
+        store_chunk(
+            chunk["content"],
+            chunk["embedding"]
+        )

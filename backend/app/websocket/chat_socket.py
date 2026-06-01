@@ -2,8 +2,8 @@ from fastapi import APIRouter
 from fastapi import WebSocket
 from fastapi import WebSocketDisconnect
 
-from backend.app.rag.retriever import retrieve_chunks
-from backend.app.rag.generator import stream_response
+from app.rag.retriever import retrieve_chunks
+from app.rag.generator import stream_response
 
 router = APIRouter()
 

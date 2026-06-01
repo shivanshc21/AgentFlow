@@ -1,6 +1,6 @@
 from sqlalchemy import text
 
-from backend.app.db.database import engine
+from app.db.database import engine
 
 def save_message(session_id, role, message):
 
