@@ -1,4 +1,4 @@
-import ollama
+from app.llm.gemini_client import generate
 
 def planner_agent(state):
 
@@ -11,16 +11,9 @@ Question:
 {query}
 """
 
-    response = ollama.chat(
-        model="llama3",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
-
-    state["plan"] = response["message"]["content"]
+    try:
+        state["plan"] = generate(prompt)
+    except Exception as e:
+        state["plan"] = f"Error generating plan: {str(e)}"
 
     return state

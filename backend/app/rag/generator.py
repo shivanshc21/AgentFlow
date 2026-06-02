@@ -1,4 +1,4 @@
-import ollama
+from app.llm.gemini_client import generate_stream
 
 def stream_response(query, contexts):
 
@@ -14,17 +14,8 @@ Question:
 Answer briefly.
 """
 
-    stream = ollama.chat(
-        model="llama3",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
-        stream=True
-    )
-
-    for chunk in stream:
-
-        yield chunk["message"]["content"]
+    try:
+        for chunk in generate_stream(prompt):
+            yield chunk
+    except Exception as e:
+        yield f"Error generating response: {str(e)}"

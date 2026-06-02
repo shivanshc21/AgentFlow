@@ -1,6 +1,37 @@
+# Web Framework
 fastapi==0.136.1
 uvicorn==0.24.0
+python-multipart
+
+# Configuration
 python-dotenv==1.0.0
 pydantic==2.13.4
 pydantic-core==2.46.4
+
+# LLM & AI
+google-generativeai>=0.3.0
+
+# Embeddings
 sentence-transformers==3.0.1
+
+# Document Processing
+pypdf
+
+# LLM Framework
+langchain
+langchain-text-splitters
+langgraph
+
+# Database
+sqlalchemy
+psycopg2-binary
+pgvector
+
+# Task Queue
+celery>=5.3.0
+redis>=4.0.0
+
+ollama
+
+celery
+redis

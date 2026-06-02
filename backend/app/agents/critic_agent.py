@@ -1,4 +1,4 @@
-import ollama
+from app.llm.gemini_client import generate
 
 def critic_agent(state):
 
@@ -14,16 +14,9 @@ Answer:
 Critique briefly.
 """
 
-    response = ollama.chat(
-        model="llama3",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
-
-    state["critique"] = response["message"]["content"]
+    try:
+        state["critique"] = generate(prompt)
+    except Exception as e:
+        state["critique"] = f"Error generating critique: {str(e)}"
 
     return state

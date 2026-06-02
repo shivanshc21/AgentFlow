@@ -1,4 +1,4 @@
-import ollama
+from app.llm.gemini_client import generate
 
 def writer_agent(state):
 
@@ -15,16 +15,9 @@ Question:
 Write final answer.
 """
 
-    response = ollama.chat(
-        model="llama3",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
-
-    state["answer"] = response["message"]["content"]
+    try:
+        state["answer"] = generate(prompt)
+    except Exception as e:
+        state["answer"] = f"Error generating answer: {str(e)}"
 
     return state
