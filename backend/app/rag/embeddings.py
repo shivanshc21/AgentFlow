@@ -8,4 +8,5 @@ def generate_embedding(text: str):
 
     embedding = model.encode(text)
 
+    # pyrefly: ignore [missing-attribute]
     return embedding.tolist()

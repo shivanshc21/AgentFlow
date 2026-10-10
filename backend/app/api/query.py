@@ -13,6 +13,7 @@ async def query_rag(q: str):
     try:
         # Run blocking graph.invoke() in thread pool to avoid blocking event loop
         loop = asyncio.get_event_loop()
+        # pyrefly: ignore [incompatible-overload-residual]
         result = await loop.run_in_executor(
             executor,
             graph.invoke,

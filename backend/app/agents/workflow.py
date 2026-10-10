@@ -8,6 +8,7 @@ from app.agents.planner_agent import planner_agent
 from app.agents.writer_agent import writer_agent
 from app.agents.critic_agent import critic_agent
 
+# pyrefly: ignore [bad-specialization]
 workflow = StateGraph(AgentState)
 
 workflow.add_node(

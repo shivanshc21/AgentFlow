@@ -31,4 +31,4 @@ def store_chunks(chunks):
         store_chunk(
             chunk["content"],
             chunk["embedding"]
-        )
+        )   
